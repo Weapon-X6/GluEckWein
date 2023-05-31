@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+
+  server:
+    build:
+      context: ./server
+    container_name: perusable-server
+    command: ["bash", "start.sh"]
+    ports:
+      - 8003:8000
+    volumes:
+      - ./server:/usr/src/app
