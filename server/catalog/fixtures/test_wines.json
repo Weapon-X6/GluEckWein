@@ -1,0 +1,14 @@
+[
+    {
+      "model": "catalog.Wine",
+      "fields": {
+        "country": "US",
+        "description": "A delicious bottle of wine.",
+        "id": "58ba903f-85ff-45c2-9bac-6d0732544841",
+        "points": 90,
+        "price": 100.00,
+        "variety": "Cabernet Sauvignon",
+        "winery": "Stag's Leap"
+      }
+    }
+  ]

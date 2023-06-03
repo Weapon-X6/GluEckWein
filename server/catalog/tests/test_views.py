@@ -1,27 +1,16 @@
 from rest_framework.test import APIClient, APITestCase
 
 from catalog.models import Wine
+from catalog.serializers import WineSerializer
 
 
 class ViewTests(APITestCase):
-    def test_empty_query_returns_everything(self):
-        wine = Wine.objects.create(
-            country='US',
-            description='A delicious bottle of wine.',
-            points=90,
-            price=100.00,
-            variety='Cabernet Sauvignon',
-            winery='Stag\'s Leap'
-        )
-        client = APIClient()
-        response = client.get('/api/v1/catalog/wines/')
-        self.assertJSONEqual(response.content, [{
-            'country': 'US',
-            'description': 'A delicious bottle of wine.',
-            'id': str(wine.id),
-            'points': 90,
-            'price': '100.00',
-            'variety': 'Cabernet Sauvignon',
-            'winery': 'Stag\'s Leap',
-        }])
+    fixtures = ['test_wines.json']
 
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_empty_query_returns_everything(self):
+        response = self.client.get('/api/v1/catalog/wines/')
+        wines = Wine.objects.all()
+        self.assertEqual(response.data, WineSerializer(wines, many=True).data)
