@@ -38,3 +38,24 @@ class ViewTests(APITestCase):
             "58ba903f-85ff-45c2-9bac-6d0732544841",
             "21e40285-cec8-417c-9a26-4f6748b7fa3a",
         ], [item['id'] for item in response.data])
+
+    def test_can_filter_on_country(self):
+        response = self.client.get('/api/v1/catalog/wines/', {
+            'country': 'Germany',
+        })
+        self.assertEquals(1, len(response.data))
+        self.assertEquals("136658ba-d39d-47d0-b5d6-a847f670fbec", response.data[0]['id'])
+
+    def test_can_filter_on_points(self):
+        response = self.client.get('/api/v1/catalog/wines/', {
+            'points': 87,
+        })
+        self.assertEquals(1, len(response.data))
+        self.assertEquals("21e40285-cec8-417c-9a26-4f6748b7fa3a", response.data[0]['id'])
+
+    def test_country_must_be_exact_match(self):
+        response = self.client.get('/api/v1/catalog/wines/', {
+            'country': 'Deutschland',
+        })
+        self.assertEquals(0, len(response.data))
+        self.assertJSONEqual(response.content, [])

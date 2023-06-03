@@ -22,5 +22,17 @@
           "variety": "Merlot",
           "winery": "Barnard Griffin"
         }
+      },
+      {
+        "model": "catalog.wine",
+        "pk": "136658ba-d39d-47d0-b5d6-a847f670fbec",
+        "fields": {
+          "country": "Germany",
+          "description": "If the first duty of an Eiswein is to be sweet, this satisfies that need. Its sugar is also reasonably balanced in this case by 10% alcohol and crisp acids. What's missing is the purity of fruit, as some slightly singed, earthy notes creep into its aromas and finish.",
+          "points": 85,
+          "price": "63.00",
+          "variety": "Silvaner",
+          "winery": "Louis Guntrum"
+        }
       }
   ]
