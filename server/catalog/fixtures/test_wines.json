@@ -10,5 +10,17 @@
         "variety": "Cabernet Sauvignon",
         "winery": "Stag's Leap"
       }
-    }
+    },
+    {
+        "model": "catalog.Wine",
+        "fields": {
+          "country": "US",
+          "description": "Another good wine.",
+          "id": "21e40285-cec8-417c-9a26-4f6748b7fa3a",
+          "points": 87,
+          "price": 18.00,
+          "variety": "Merlot",
+          "winery": "Barnard Griffin"
+        }
+      }
   ]
