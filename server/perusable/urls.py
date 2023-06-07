@@ -21,6 +21,3 @@ if settings.DEBUG or settings.TESTING_MODE:
     urlpatterns = [
         path('debug/', include(debug_toolbar.urls)),
     ] + urlpatterns
-
-
-
