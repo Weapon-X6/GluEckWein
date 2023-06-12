@@ -28,11 +28,23 @@
         "pk": "136658ba-d39d-47d0-b5d6-a847f670fbec",
         "fields": {
           "country": "Germany",
-          "description": "If the first duty of an Eiswein is to be sweet, this satisfies that need. Its sugar is also reasonably balanced in this case by 10% alcohol and crisp acids. What's missing is the purity of fruit, as some slightly singed, earthy notes creep into its aromas and finish.",
+          "description": "If the first duty of an Eiswein is to be sweet, this satisfies that need. Its sugar is also reasonably balanced in this case by 10% alcohol and crisp acids. What's missing is the purity of fruit, as some slightly singed, earthy notes creep into its aromas and finish. BettER than Champagne for suRE",
           "points": 85,
           "price": "63.00",
           "variety": "Silvaner",
           "winery": "Louis Guntrum"
+        }
+      },
+      {
+        "model": "catalog.Wine",
+        "fields": {
+          "country": "France",
+          "description": "A creamy wine with full Chardonnay flavors.",
+          "id": "000bbdff-30fc-4897-81c1-7947e11e6d1a",
+          "points": 89,
+          "price": 33.00,
+          "variety": "Champagne Blend",
+          "winery": "Phillipe Gonet"
         }
       }
   ]

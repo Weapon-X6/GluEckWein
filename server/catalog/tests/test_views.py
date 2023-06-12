@@ -33,10 +33,11 @@ class ViewTests(APITestCase):
         response = self.client.get('/api/v1/catalog/wines/', {
             'query': 'wine',
         })
-        self.assertEqual(2, len(response.data))
+        self.assertEqual(3, len(response.data))
         self.assertCountEqual([
             "58ba903f-85ff-45c2-9bac-6d0732544841",
             "21e40285-cec8-417c-9a26-4f6748b7fa3a",
+            "000bbdff-30fc-4897-81c1-7947e11e6d1a",
         ], [item['id'] for item in response.data])
 
     def test_can_filter_on_country(self):
@@ -67,8 +68,17 @@ class ViewTests(APITestCase):
         })
         # Count is equal to total number of results in database
         # We're loading 3 wines into the database via fixtures
-        self.assertEqual(3, response.data['count'])
+        self.assertEqual(4, response.data['count'])
         self.assertEqual(1, len(response.data['results']))
         self.assertIsNotNone(response.data['previous'])
         self.assertIsNotNone(response.data['next'])
 
+    def test_search_results_returned_in_correct_order(self):
+        response = self.client.get('/api/v1/catalog/wines/', {
+            'query': 'Champagne',
+        })
+        self.assertEqual(2, len(response.data))
+        self.assertListEqual([
+            "000bbdff-30fc-4897-81c1-7947e11e6d1a",
+            "136658ba-d39d-47d0-b5d6-a847f670fbec",
+        ], [item['id'] for item in response.data])
