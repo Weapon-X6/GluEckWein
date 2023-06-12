@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.contrib.postgres.search import SearchQuery, SearchVector
 
 from django_filters.rest_framework import CharFilter, FilterSet
 
@@ -9,12 +9,9 @@ class WineFilterSet(FilterSet):
     query = CharFilter(method='filter_query')
 
     def filter_query(self, queryset, name, value):
-        search_query = Q(
-            Q(variety__search=value) |
-            Q(winery__search=value) |
-            Q(description__search=value)
-        )
-        return queryset.filter(search_query)
+        return queryset.annotate(
+            search_vector=SearchVector('variety', 'winery', 'description')
+        ).filter(search_vector=SearchQuery(value))
 
     class Meta:
         model = Wine
