@@ -1,3 +1,5 @@
+from django.contrib.postgres.search import SearchVector
+
 from rest_framework.test import APIClient, APITestCase
 
 from catalog.models import Wine
@@ -8,6 +10,12 @@ class ViewTests(APITestCase):
     fixtures = ['test_wines.json']
 
     def setUp(self):
+        Wine.objects.all().update(search_vector=(
+            SearchVector('variety', weight='A') +
+            SearchVector('winery', weight='A') +
+            SearchVector('description', weight='B')
+        ))
+
         self.client = APIClient()
 
     def test_empty_query_returns_everything(self):
@@ -82,3 +90,14 @@ class ViewTests(APITestCase):
             "000bbdff-30fc-4897-81c1-7947e11e6d1a",
             "136658ba-d39d-47d0-b5d6-a847f670fbec",
         ], [item['id'] for item in response.data])
+
+    def test_search_vector_populated_on_save(self):
+        wine = Wine.objects.create(
+            country='US',
+            points=80,
+            price=1.99,
+            variety='Pinot Grigio',
+            winery='Charles Shaw'
+        )
+        wine = Wine.objects.get(id=wine.id)
+        self.assertEqual("'charl':3A 'grigio':2A 'pinot':1A 'shaw':4A", wine.search_vector)
