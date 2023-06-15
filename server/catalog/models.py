@@ -26,3 +26,9 @@ class Wine(models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class SearchHeadline(models.Func):
+    function = 'ts_headline'
+    output_field = models.TextField()
+    template = '%(function)s(%(expressions)s, \'StartSel = <mark>, StopSel = </mark>, HighlightAll=TRUE\')'

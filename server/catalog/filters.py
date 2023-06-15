@@ -1,9 +1,9 @@
 from django.contrib.postgres.search import SearchQuery, SearchRank
-from django.db.models import CharField, F, Func, TextField, Value
+from django.db.models import F
 
 from django_filters.rest_framework import CharFilter, FilterSet
 
-from .models import Wine
+from .models import Wine, SearchHeadline
 
 
 class WineFilterSet(FilterSet):
@@ -12,24 +12,9 @@ class WineFilterSet(FilterSet):
 
     def filter_query(self, queryset, name, value):
         return queryset.annotate(
-            variety_headline=Func(
-                F('variety'),
-                SearchQuery(value, output_field=CharField()),
-                Value('StartSel = <mark>, StopSel = </mark>, HighlightAll=TRUE', output_field=CharField()),
-                function='ts_headline',
-            ),
-             winery_headline=Func(
-                F('winery'),
-                SearchQuery(value, output_field=CharField()),
-                Value('StartSel = <mark>, StopSel = </mark>, HighlightAll=TRUE', output_field=CharField()),
-                function='ts_headline',
-            ),
-            description_headline=Func(
-                F('description'),
-                SearchQuery(value, output_field=TextField()),
-                Value('StartSel = <mark>, StopSel = </mark>, HighlightAll=TRUE', output_field=TextField()),
-                function='ts_headline',
-            ),
+            variety_headline=SearchHeadline(F('variety'), SearchQuery(value)),
+            winery_headline=SearchHeadline(F('winery'), SearchQuery(value)),
+            description_headline=SearchHeadline(F('description'), SearchQuery(value)),
             search_rank=SearchRank(F('search_vector'), SearchQuery(value)),
         ).filter(
             search_vector=SearchQuery(value)
