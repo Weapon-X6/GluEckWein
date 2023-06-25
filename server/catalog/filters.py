@@ -11,14 +11,7 @@ class WineFilterSet(FilterSet):
 
 
     def filter_query(self, queryset, name, value):
-        return queryset.annotate(
-            variety_headline=SearchHeadline(F('variety'), SearchQuery(value)),
-            winery_headline=SearchHeadline(F('winery'), SearchQuery(value)),
-            description_headline=SearchHeadline(F('description'), SearchQuery(value)),
-            search_rank=SearchRank(F('search_vector'), SearchQuery(value)),
-        ).filter(
-            search_vector=SearchQuery(value)
-        ).order_by('-search_rank', 'id')
+        return queryset.search(value)
 
     class Meta:
         model = Wine
