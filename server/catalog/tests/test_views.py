@@ -137,7 +137,7 @@ class ViewTests(APITestCase):
             WineSearchWord(word='noir'),
             WineSearchWord(word='merlot'),
         ])
-        response = self.client.get('api/v1/catalog/wine-search-words/', {
+        response = self.client.get('/api/v1/catalog/wine-search-words/', {
             'query': 'greegio',
         })
         self.assertEqual(1, len(response.data))
