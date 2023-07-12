@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 import './App.css';
@@ -10,18 +11,19 @@ import Search from './components/Search';
 function App() {
   const [results, setResults] = useState([]);
 
-  const search = query => {
-    setResults([
-      {
-        id: 'ecf8760a-d139-4d63-83bc-6ddbac9f87dc',
-        country: 'US',
-        description: 'A youthful, exciting wine that offers plenty of earth and cassis.',
-        points: 92,
-        price: '65.00',
-        variety: 'Cabernet Sauvignon',
-        winery: 'Staglin'
-      }
-    ]);
+  const search = async (query) => {
+    try{
+      const response = await axios({
+        method: 'get',
+        url: 'http://localhost:8003/api/v1/catalog/wines/',
+        params: {
+          query: query
+        }
+      });
+      setResults(response.data)
+    } catch( error ){
+      console.error(error);
+    }
   };
 
   return (
