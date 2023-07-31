@@ -1,4 +1,8 @@
-[
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
     {
       "id": "ecf8760a-d139-4d63-83bc-6ddbac9f87dc",
       "country": "US",
@@ -9,3 +13,4 @@
       "winery": "Staglin"
     }
   ]
+}
