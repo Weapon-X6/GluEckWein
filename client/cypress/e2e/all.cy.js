@@ -17,4 +17,18 @@ describe('Perusable.', () => {
 
     cy.get('div.card-title').should('contain', 'Cabernet Sauvignon');
   });
+
+  it('Displays wine search words.', () => {
+    // Stub server
+    cy.intercept(
+      'GET', '**/api/v1/catalog/wine-search-words/**',
+      { fixture: 'wine_search_words.json' }
+    ).as('getWineSearchWords');
+
+    cy.visit('/');
+    cy.get('input[placeholder="Enter a search term (e.g. cabernet)"]')
+      .type('cabernet')
+    cy.wait('@getWineSearchWords');
+    cy.get('div#query').should('contain', 'cabernet')
+  });
 });
