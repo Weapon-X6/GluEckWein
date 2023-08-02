@@ -1,4 +1,9 @@
 describe('Perusable.', () => {
+  it('Displays the home page.', () => {
+    cy.visit('/');
+    cy.get('h1').should('contain', 'Perusable');
+  });
+
   it('Displays a list of results.', () => {
     cy.intercept('GET', '**/api/v1/catalog/wines/**', { fixture: 'wines.json' }).as('getWines');
 
