@@ -5,6 +5,8 @@ import os
 import sys
 from pathlib import Path
 
+from elasticsearch_dsl import connections
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -155,3 +157,15 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost.localdomain:3000",
 ]
+
+
+def get_env_list(key, default=None):
+    env = os.getenv(key)
+    if env:
+        return env.split(',')
+    return default
+
+
+ES_HOSTS = get_env_list('ES_HOSTS', ['http://localhost:9200'])
+
+ES_CONNECTION = connections.create_connection(hosts=ES_HOSTS)
