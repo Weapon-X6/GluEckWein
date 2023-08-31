@@ -12,39 +12,39 @@
       }
     },
     {
-        "model": "catalog.Wine",
-        "fields": {
-          "country": "US",
-          "description": "Another good wine.",
-          "id": "21e40285-cec8-417c-9a26-4f6748b7fa3a",
-          "points": 87,
-          "price": 18.00,
-          "variety": "Merlot",
-          "winery": "Barnard Griffin"
-        }
-      },
-      {
-        "model": "catalog.wine",
-        "pk": "136658ba-d39d-47d0-b5d6-a847f670fbec",
-        "fields": {
+      "model": "catalog.Wine",
+      "fields": {
+        "country": "US",
+        "description": "Another good wine.",
+        "id": "21e40285-cec8-417c-9a26-4f6748b7fa3a",
+        "points": 87,
+        "price": 18.00,
+        "variety": "Merlot",
+        "winery": "Barnard Griffin"
+      }
+    },
+    {
+      "model": "catalog.wine",
+      "fields": {
           "country": "Germany",
           "description": "If the first duty of an Eiswein is to be sweet, this satisfies that need. Its sugar is also reasonably balanced in this case by 10% alcohol and crisp acids. What's missing is the purity of fruit, as some slightly singed, earthy notes creep into its aromas and finish. BettER than Champagne for suRE",
+          "id": "136658ba-d39d-47d0-b5d6-a847f670fbec",
           "points": 85,
           "price": "63.00",
           "variety": "Silvaner",
           "winery": "Louis Guntrum"
-        }
-      },
-      {
-        "model": "catalog.Wine",
-        "fields": {
-          "country": "France",
-          "description": "A creamy wine with full Chardonnay flavors.",
-          "id": "000bbdff-30fc-4897-81c1-7947e11e6d1a",
-          "points": 89,
-          "price": 33.00,
-          "variety": "Champagne Blend",
-          "winery": "Phillipe Gonet"
-        }
       }
+    },
+    {
+      "model": "catalog.Wine",
+      "fields": {
+        "country": "France",
+        "description": "A creamy wine with full Chardonnay flavors.",
+        "id": "000bbdff-30fc-4897-81c1-7947e11e6d1a",
+        "points": 89,
+        "price": 33.00,
+        "variety": "Champagne Blend",
+        "winery": "Phillipe Gonet"
+      }
+    }
   ]
