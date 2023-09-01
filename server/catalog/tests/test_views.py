@@ -1,6 +1,7 @@
 import json
 import pathlib
 from unittest.mock import patch
+from urllib.parse import parse_qs, urlsplit
 import uuid
 
 from django.conf import settings
@@ -191,3 +192,29 @@ class ESViewTests(APITestCase):
 
     def tearDown(self):
         self.connection.indices.delete(index=self.index)
+
+    def test_no_previous_page_for_first_page_of_results(self):
+        with patch('catalog.views.constants') as mock_constants:
+            mock_constants.ES_INDEX = self.index
+            response = self.client.get('/api/v1/catalog/es-wines/', {
+                'limit': 1,
+                'offset': 0,
+                'query': 'wine',
+            })
+        self.assertIsNone(response.data['previous'])
+
+    def test_previous_page(self):
+        with patch('catalog.views.constants') as mock_constants:
+            mock_constants.ES_INDEX = self.index
+            response = self.client.get('/api/v1/catalog/es-wines/', {
+                'limit': 1,
+                'offset': 1,
+                'query': 'wine',
+            })
+
+        # Extract `offset` from `previous` URL
+        previous = urlsplit(response.data['previous'])
+        query_params = parse_qs(previous.query)
+        offset = int(query_params['offset'][0])
+
+        self.assertEqual(0, offset)
