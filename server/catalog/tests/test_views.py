@@ -218,3 +218,29 @@ class ESViewTests(APITestCase):
         offset = int(query_params['offset'][0])
 
         self.assertEqual(0, offset)
+
+    def test_no_next_page_for_last_page_of_results(self):
+        with patch('catalog.views.constants') as mock_constants:
+            mock_constants.ES_INDEX = self.index
+            response = self.client.get('/api/v1/catalog/es-wines/', {
+                'limit': 1,
+                'offset': 3, # last page of results
+                'query': 'wine'
+            })
+        self.assertIsNone(response.data['next'])
+
+    def test_next_page(self):
+        with patch('catalog.views.constants') as mock_constants:
+            mock_constants.ES_INDEX = self.index
+            response = self.client.get('/api/v1/catalog/es-wines/', {
+                'limit': 1,
+                'offset': 1,
+                'query': 'wine'
+            })
+
+        # Extract `offset` from `next` URL
+        next = urlsplit(response.data['next'])
+        query_params = parse_qs(next.query)
+        offset = int(query_params['offset'][0])
+
+        self.assertEquals(2, offset)
