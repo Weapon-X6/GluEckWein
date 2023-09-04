@@ -1,7 +1,7 @@
 from urllib.parse import SplitResult, urlencode, urlsplit
 
 from elasticsearch_dsl import Search
-from elasticsearch_dsl.query import Match
+from elasticsearch_dsl.query import Match, Term
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -59,6 +59,8 @@ class ESWinesView(APIView):
 
     def get(self, request, *args, **kwargs):
         query = self.request.query_params.get('query')
+        country = self.request.query_params.get('country')
+        points = self.request.query_params.get('points')
         limit = int(self.request.query_params.get('limit', 10))
         offset = int(self.request.query_params.get('offset', 0))
 
@@ -68,7 +70,10 @@ class ESWinesView(APIView):
             Match(variety=query),
             Match(winery=query),
             Match(description=query)
-        ])[offset : offset + limit]
+        ], filter=[
+            Term(country=country),
+            Term(points=points),
+        ], minimum_should_match=1)[offset : offset + limit]
 
         response = search.execute()
 
