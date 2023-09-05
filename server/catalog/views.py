@@ -66,14 +66,24 @@ class ESWinesView(APIView):
 
         # Build Elasticsearch query.
         search = Search(index=constants.ES_INDEX)
-        search = search.query('bool', should=[
-            Match(variety=query),
-            Match(winery=query),
-            Match(description=query)
-        ], filter=[
-            Term(country=country),
-            Term(points=points),
-        ], minimum_should_match=1)[offset : offset + limit]
+        q = {'should': [], 'filter': []}
+
+        # Build should clause.
+        if query:
+            q['should'] = [
+                Match(variety=query),
+                Match(winery=query),
+                Match(description=query)
+            ]
+            q['minimum_should_match'] = 1
+
+        # Build filter clause.
+        if country:
+            q['filter'].append(Term(country=country))
+        if points:
+            q['filter'].append(Term(points=points))
+
+        search = search.query('bool', **q)[offset : offset + limit]
 
         response = search.execute()
 
