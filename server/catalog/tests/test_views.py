@@ -244,3 +244,16 @@ class ESViewTests(APITestCase):
         offset = int(query_params['offset'][0])
 
         self.assertEquals(2, offset)
+
+    def test_search_results_returned_in_correct_order(self):
+        with patch('catalog.views.constants') as mock_constants:
+            mock_constants.ES_INDEX = self.index
+            response = self.client.get('/api/v1/catalog/es-wines/', {
+                'query': 'Chardonnay',
+            })
+            results = response.data['results']
+        self.assertEqual(2, len(results))
+        self.assertListEqual([
+            "0082f217-3300-405b-abc6-3adcbecffd67",
+            "000bbdff-30fc-4897-81c1-7947e11e6d1a",
+        ], [item['id'] for item in results])
