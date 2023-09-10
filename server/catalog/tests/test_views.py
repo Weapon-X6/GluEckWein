@@ -237,14 +237,15 @@ class ESViewTests(APITestCase):
         self.assertEquals(2, offset)
 
     def test_search_results_returned_in_correct_order(self):
+        """Test values are returned per Elastichsearch's default relevancy scores."""
         response = self.client.get('/api/v1/catalog/es-wines/', {
-            'query': 'Chardonnay',
+            'query': 'Champagne',
         })
         results = response.data['results']
         self.assertEqual(2, len(results))
         self.assertListEqual([
-            "0082f217-3300-405b-abc6-3adcbecffd67",
-            "000bbdff-30fc-4897-81c1-7947e11e6d1a",
+           "000bbdff-30fc-4897-81c1-7947e11e6d1a",
+           "136658ba-d39d-47d0-b5d6-a847f670fbec",
         ], [item['id'] for item in results])
 
     def test_description_highlights_matched_words(self):

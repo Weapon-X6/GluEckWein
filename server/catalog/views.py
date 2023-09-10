@@ -72,14 +72,14 @@ class ESWinesView(APIView):
         if query:
             q['should'] = [
                 Match(variety={'query': query, 'boost': 3.0}),
-                Match(winery={'query': query, 'boost': 2.0}),  
+                Match(winery={'query': query, 'boost': 2.0}),
                 Match(description={'query': query, 'boost': 1.0})
             ]
             q['minimum_should_match'] = 1
 
             # Build highlighting.
             search = search.highlight_options(
-                number_of_fragments=0
+                number_of_fragments=0,
                 pre_tags=['<mark>'],
                 post_tags=['</mark>']
             )
