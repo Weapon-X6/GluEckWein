@@ -77,6 +77,14 @@ class ESWinesView(APIView):
             ]
             q['minimum_should_match'] = 1
 
+            # Build highlighting.
+            search = search.highlight_options(
+                number_of_fragments=0
+                pre_tags=['<mark>'],
+                post_tags=['</mark>']
+            )
+            search = search.highlight('variety', 'winery', 'description')
+
         # Build filter clause.
         if country:
             q['filter'].append(Term(country=country))
@@ -101,10 +109,22 @@ class ESWinesView(APIView):
             'results': [{
                 'id': hit.meta.id,
                 'country': hit.country,
-                'description': hit.description,
+                'description': (
+                    hit.meta.highlight.description[0]
+                    if  'highlight' in hit.meta and 'description' in hit.meta.highlight
+                    else hit.description
+                ),
                 'points': hit.points,
                 'price': hit.price,
-                'variety': hit.variety,
-                'winery': hit.winery,
+                'variety': (
+                    hit.meta.highlight.variety[0]
+                    if 'highlight' in hit.meta and 'variety' in hit.meta.highlight
+                    else hit.winery
+                ),
+                'winery': (
+                    hit.meta.highlight.winery[0]
+                    if 'highlight' in hit.meta and 'winery' in hit.meta.highlight
+                    else hit.winery
+                ),
             } for hit in response],
         })

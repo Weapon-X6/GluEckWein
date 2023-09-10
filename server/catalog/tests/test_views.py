@@ -247,6 +247,13 @@ class ESViewTests(APITestCase):
             "000bbdff-30fc-4897-81c1-7947e11e6d1a",
         ], [item['id'] for item in results])
 
+    def test_description_highlights_matched_words(self):
+        response = self.client.get('/api/v1/catalog/es-wines/', {
+            'query': 'wine',
+        })
+        results = response.data['results']
+        self.assertEqual('A delicious bottle of <mark>wine</mark>.', results[0]['description'])
+
     def tearDown(self):
         self.mock_constants.stop()
         self.connection.indices.delete(index=self.index)
