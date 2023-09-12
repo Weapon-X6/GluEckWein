@@ -5,7 +5,7 @@ describe('Perusable.', () => {
   });
 
   it('Displays a list of results.', () => {
-    cy.intercept('GET', '**/api/v1/catalog/wines/**', { fixture: 'wines.json' }).as('getWines');
+    cy.intercept('GET', '**/api/v1/catalog/pg-wines/**', { fixture: 'wines.json' }).as('getWines');
 
     cy.visit('/');
     cy.get('input#country').type('US');
