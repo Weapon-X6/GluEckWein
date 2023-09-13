@@ -71,9 +71,9 @@ class ESWinesView(APIView):
         # Build should clause.
         if query:
             q['should'] = [
-                Match(variety={'query': query, 'boost': 3.0}),
-                Match(winery={'query': query, 'boost': 2.0}),
-                Match(description={'query': query, 'boost': 1.0})
+                Match(variety={'query': query, 'boost': 3.0, 'operator': 'AND'}),
+                Match(winery={'query': query, 'boost': 2.0, 'operator': 'AND'}),
+                Match(description={'query': query, 'boost': 1.0, 'operator': 'AND'})
             ]
             q['minimum_should_match'] = 1
 
