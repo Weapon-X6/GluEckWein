@@ -1,7 +1,7 @@
 describe('Perusable.', () => {
   it('Displays the home page.', () => {
     cy.visit('/');
-    cy.get('h1').should('contain', 'Perusable');
+    cy.get('h1').should('contain', 'GlückWein');
   });
 
   it('Displays a list of results.', () => {

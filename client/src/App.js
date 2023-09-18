@@ -27,7 +27,7 @@ function App() {
 
   return (
        <Container className='pt-3'>
-        <h1>Perusable</h1>
+        <h1>GlückWein</h1>
         <p className='lead'>
           Use the controls below to peruse the wine catalog and filter the results.
         </p>
