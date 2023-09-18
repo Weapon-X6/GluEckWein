@@ -15,7 +15,7 @@ docker-compose up -d --build
 
 Then you can use it through the React client at http://localhost:3000/
 
-![React client|666x430](client/public/glueckwein.png)
+![React client|666x430](client/public/glueckwein_DE.png)
 
 
 You can also use the API directly either using:
