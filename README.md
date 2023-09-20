@@ -5,7 +5,7 @@ A RESTful API for wines using Full-Text Search
 ### Features
 
 * Supports pagination, filtering, ranking, and highlighting
-* Provides a Postgres API along a more advanced Elastic Search API
+* Provides a Postgres API along a more advanced Elasticsearch API
 
 ### Up & Running
 Just run
@@ -19,5 +19,5 @@ Then you can use it through the React client at http://localhost:3000/
 
 
 You can also use the API directly either using:
-- Elastic Search through http://localhost:8003/api/v1/catalog/wines/  or
+- Elasticsearch through http://localhost:8003/api/v1/catalog/wines/  or
 - Postgres through http://localhost:8003/api/v1/catalog/pg-wines/
