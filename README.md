@@ -5,7 +5,9 @@ A RESTful API for wines using Full-Text Search
 ### Features
 
 * Supports pagination, filtering, ranking, and highlighting
-* Provides a Postgres API along a more advanced Elasticsearch API
+* Also offer suggestions for misspelled words 
+* Provides a Postgres API along with a more advanced Elasticsearch API
+* React client use E2E testing (Cypress)
 
 ### Up & Running
 Just run
