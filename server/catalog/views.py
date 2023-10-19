@@ -128,3 +128,22 @@ class ESWinesView(APIView):
                 ),
             } for hit in response],
         })
+
+
+class ESWineSearchWordsView(APIView):
+    def get(self, request, *args, **kwargs):
+        """Handle searches for a single term"""
+        query = self.request.query_params.get('query')
+
+        # Build Elasticsearch query.
+        search = Search().suggest('result', query, term={
+            'field': 'all_text'
+        })
+
+        response = search.execute()
+
+        # Extract words.
+        options = response.suggest.result[0]['options']
+        words = [{'word': option['text']} for option in options]
+
+        return Response(data=words)
