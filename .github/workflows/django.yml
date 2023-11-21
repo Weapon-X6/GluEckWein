@@ -15,3 +15,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Test
         run: docker-compose run --rm server sh -c "python manage.py test 'catalog.tests.test_views.ViewTests'"
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
