@@ -1,3 +1,4 @@
+![example branch parameter](https://github.com/Weapon-X6/GluEckWein/actions/workflows/django.yml/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/Weapon-X6/GluEckWein/graph/badge.svg?token=3UHVPNOGUL)](https://codecov.io/gh/Weapon-X6/GluEckWein)
 
 # GlückWein
