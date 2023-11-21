@@ -14,17 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: |
-          cd server
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
       - name: Run tests
         run: |
-          cd server
-          coverage run manage.py test catalog.tests.test_views.ViewTests
-          coverage report
+          docker-compose run --rm server sh -c \
+            "coverage run manage.py test 'catalog.tests.test_views.ViewTests'" \
+            "coverage report"
       
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
