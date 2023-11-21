@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/Weapon-X6/GluEckWein/graph/badge.svg?token=3UHVPNOGUL)](https://codecov.io/gh/Weapon-X6/GluEckWein)
+
 # GlückWein
 A RESTful API for wines using Full-Text Search
 
