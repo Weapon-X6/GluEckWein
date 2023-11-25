@@ -17,6 +17,7 @@ services:
   elasticsearch:
     container_name: perusable-elasticsearch-prod
     environment:
+      - node.name=esmf
       - ES_JAVA_OPTS=-Xms2g -Xmx2g
       - bootstrap.memory_lock=true
       - discovery.type=single-node
@@ -41,7 +42,7 @@ services:
       - SQL_HOST=perusable-database-prod
       - SQL_PORT=5432
       - ES_HOSTS=http://perusable-elasticsearch-prod:9200
-    command: ["bash", "start.prod.sh"]
+    command: [ "bash", "start.prod.sh" ]
     ports:
       - 8000
     volumes:

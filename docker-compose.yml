@@ -17,11 +17,13 @@ services:
   elasticsearch:
     container_name: perusable-elasticsearch
     environment:
+      - node.name=esmf
       - ES_JAVA_OPTS=-Xms2g -Xmx2g
       - bootstrap.memory_lock=true
       - discovery.type=single-node
       # WARNING: Enable X-Pack security for production builds
       - xpack.security.enabled=false
+      - cluster.routing.allocation.disk.threshold_enabled=false
     image: elasticsearch:7.17.9
     ports:
       - 9200:9200
@@ -43,7 +45,7 @@ services:
       - SQL_HOST=perusable-database
       - SQL_PORT=5432
       - ES_HOSTS=http://perusable-elasticsearch:9200
-    command: ["bash", "start.sh"]
+    command: [ "bash", "start.sh" ]
     ports:
       - 8003:8000
     volumes:
