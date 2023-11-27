@@ -17,10 +17,15 @@ jobs:
       - name: Prepare services
         run: |
           docker-compose up -d
+          sleep 10s
+
+      - name: Setup data
+        run: |
+          docker-compose exec -T server python manage.py loaddata wines.json --format=json
+          docker-compose exec -T server python manage.py elasticsearch
 
       - name: Run tests
         run: |
-          sleep 10s
           docker-compose exec -T server coverage run manage.py test
           docker-compose exec -T server coverage report
           docker-compose down
