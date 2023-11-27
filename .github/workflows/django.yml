@@ -16,10 +16,11 @@ jobs:
 
       - name: Prepare services
         run: |
-          docker-compose up --build -d
+          docker-compose up -d
 
       - name: Run tests
         run: |
+          sleep 10s
           docker-compose exec -T server coverage run manage.py test
           docker-compose exec -T server coverage report
           docker-compose down
