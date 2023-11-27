@@ -27,7 +27,7 @@ jobs:
       - name: Run tests
         run: |
           docker-compose exec -T server coverage run manage.py test
-          docker-compose exec -T server coverage report
+          docker-compose exec -T server coverage xml
           docker-compose down
 
       - name: Upload coverage reports to Codecov
